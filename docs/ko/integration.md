@@ -1,18 +1,18 @@
-# SDK 연동하기
+# Web-SDK 연동하기
 
 ## 시작하기 전에
 
 콘솔 서비스 관리 / 서비스 정보 페이지에서 데이터 소소에 Web > 루트 도메인을 등록해주셔야합니다.
 
-## SDK 설치 및 초기화
+## 설치 및 초기화
 
-### SDK 지원 브라우저
+### 지원 브라우저
 
 | Chrome | Firefox | Safari | Edge | IE  |
 | :----: | :-----: | :----: | :--: | :-: |
 |   O    |    O    |   O    |  O   |  X  |
 
-### SDK 설치 및 초기화
+### 설치 및 초기화
 
 ```javascript
 // SDK 설치
@@ -35,7 +35,6 @@ SDK 초기화 시 항목별 설정값은 아래와 같습니다. 필수값은 �
 <script>
      // init 옵션을 사용하는 경우
     Dfinery.init('Your ServiceId', {
-        shareSubdomainCookie : true, 
         traceLevel: Dfinery.TraceLevel.INFO, // INFO로 설정시 자세한 로그를 볼수 있습니다.  테스트시 추천
     });
 </script>

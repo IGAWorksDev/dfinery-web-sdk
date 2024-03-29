@@ -1,6 +1,6 @@
 # 분석
 
-이 문서는 Dfinery SDK를 사용하여 사용자의 동작을 추적하기 위해 수행해야할 작업에 대해 서술합니다.
+이 문서는 Dfinery Web-SDK를 사용하여 사용자의 동작을 추적하기 위해 수행해야할 작업에 대해 서술합니다.
 
 ## 시작하기 전에
 
@@ -70,19 +70,20 @@ logEvent(eventName, eventParam);
 ### 상품 속성
 
 `Dfinery.EventProperty.KEY_ITEMS` 내에 배열로 적재되는 상품에 대한 기 정의된 속성 값에 대한 정보입니다.
+KEY_ITEM_ID, KEY_ITEM_NAME, KEY_PRICE, KEY_QUANTITY, KEY_DISCOUNT는 필수 값으로 꼭 넣어서 생성해야합니다.
 
-| 상수명                              | 속성 명      | 타입   | 설명           |
-| ----------------------------------- | ------------ | ------ | -------------- |
-| Dfinery.EventProperty.KEY_ITEM_ID   | df_item_id   | String | 상품 번호(ID)  |
-| Dfinery.EventProperty.KEY_ITEM_NAME | df_item_name | String | 상품 명        |
-| Dfinery.EventProperty.KEY_PRICE     | df_price     | Number | 상품 단가      |
-| Dfinery.EventProperty.KEY_QUANTITY  | df_quantity  | Number | 상품 수량      |
-| Dfinery.EventProperty.KEY_DISCOUNT  | df_discount  | Number | 상품 할인가    |
-| Dfinery.EventProperty.KEY_CATEGORY1 | df_category1 | String | 상품 카테고리1 |
-| Dfinery.EventProperty.KEY_CATEGORY2 | df_category2 | String | 상품 카테고리2 |
-| Dfinery.EventProperty.KEY_CATEGORY3 | df_category3 | String | 상품 카테고리3 |
-| Dfinery.EventProperty.KEY_CATEGORY4 | df_category4 | String | 상품 카테고리4 |
-| Dfinery.EventProperty.KEY_CATEGORY5 | df_category5 | String | 상품 카테고리5 |
+| 상수명                              | 속성 명      | 타입   | 설명           | 필수 |
+| ----------------------------------- | ------------ | ------ | -------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEM_ID   | df_item_id   | String | 상품 번호(ID)  | O    |
+| Dfinery.EventProperty.KEY_ITEM_NAME | df_item_name | String | 상품 명        | O    |
+| Dfinery.EventProperty.KEY_PRICE     | df_price     | Number | 상품 단가      | O    |
+| Dfinery.EventProperty.KEY_QUANTITY  | df_quantity  | Number | 상품 수량      | O    |
+| Dfinery.EventProperty.KEY_DISCOUNT  | df_discount  | Number | 상품 할인가    | O    |
+| Dfinery.EventProperty.KEY_CATEGORY1 | df_category1 | String | 상품 카테고리1 |      |
+| Dfinery.EventProperty.KEY_CATEGORY2 | df_category2 | String | 상품 카테고리2 |      |
+| Dfinery.EventProperty.KEY_CATEGORY3 | df_category3 | String | 상품 카테고리3 |      |
+| Dfinery.EventProperty.KEY_CATEGORY4 | df_category4 | String | 상품 카테고리4 |      |
+| Dfinery.EventProperty.KEY_CATEGORY5 | df_category5 | String | 상품 카테고리5 |      |
 
 ### 사용 예시
 
@@ -92,18 +93,18 @@ Dfinery.logEvent(Dfinery.EVENT.LOGIN);
 
 // 이벤트 속성과 함께 기록할 경우 ex) 회원가입
 const eventParam = {};
-eventParam[Dfinery.EventProperty.KEY_SIGN_CHANNEL] = 'Kakao';
+eventParam[Dfinery.EventProperty.KEY_SIGN_CHANNEL] = "Kakao";
 Dfinery.logEvent(Dfinery.Event.SIGN_UP, eventParam);
 
 // 이벤트 item 속성과 함께 기록할 경우 ex) 구매
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -120,16 +121,16 @@ Dfinery.logEvent(Dfinery.Event.PURCHASE, eventParam);
 Identity설정과 Event를 같이 하려면 비동기(async) 함수내에서 실행되어야 합니다.
 
 ```javascript
-async function DfineryLogin(){
+async function DfineryLogin() {
   // 유저 식별 정보 설정
-  await Dfinery.setIdentity(Dfinery.Identity.EXTERNAL_ID, 'TestUserId');
+  await Dfinery.setIdentity(Dfinery.Identity.EXTERNAL_ID, "TestUserId");
   // 로그인 이벤트
   Dfinery.logEvent(Dfinery.Event.LOGIN);
 }
 ```
 
-> [!WARNING] 
-> `Dfinery.setIdentity` API를 기다리지 않고 Login을 실행할 경우 Identity를 설정한 유저의 Login이벤트로 측정 안 될 수 있으므로 반드시 await나 promise.then함수를 사용하여 Identity가 설정된 후 호출 되어야 합니다. 
+> [!WARNING] > `Dfinery.setIdentity` API를 기다리지 않고 Login을 실행할 경우 Identity를 설정한 유저의 Login이벤트로 측정 안 될 수 있으므로 반드시 await나 promise.then함수를 사용하여 Identity가 설정된 후 호출 되어야 합니다.
+
 ## 로그아웃
 
 유저가 로그아웃하는 동작을 나타내는 이벤트입니다.
@@ -144,15 +145,15 @@ Dfinery.logEvent(Dfinery.Event.LOGOUT);
 
 ```javascript
 const eventParam = {};
-eventParam[Dfinery.EventProperty.KEY_SIGN_CHANNEL] = 'Kakao';
+eventParam[Dfinery.EventProperty.KEY_SIGN_CHANNEL] = "Kakao";
 Dfinery.logEvent(Dfinery.Event.SIGN_UP, eventParam);
 ```
 
 ### 기 정의된 속성 값
 
-| 이름                                   | 타입   | 설명          |
-| -------------------------------------- | ------ | ------------- |
-| Dfinery.EventProperty.KEY_SIGN_CHANNEL | String | 회원가입 채널 |
+| 이름                                   | 타입   | 설명          | 필수 |
+| -------------------------------------- | ------ | ------------- | ---- |
+| Dfinery.EventProperty.KEY_SIGN_CHANNEL | String | 회원가입 채널 | O    |
 
 ## 홈 화면 조회
 
@@ -160,7 +161,7 @@ Dfinery.logEvent(Dfinery.Event.SIGN_UP, eventParam);
 
 ```javascript
 const eventParam = {};
-eventParam['key'] = 'value'; //사용자 정의 속성 값(Optional)
+eventParam["key"] = "value"; //사용자 정의 속성 값(Optional)
 Dfinery.logEvent(Dfinery.Event.VIEW_HOME, eventParam);
 ```
 
@@ -170,13 +171,13 @@ Dfinery.logEvent(Dfinery.Event.VIEW_HOME, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -192,9 +193,9 @@ Dfinery.logEvent(Dfinery.Event.VIEW_CART, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                              | 타입  | 설명               |
-| --------------------------------- | ----- | ------------------ |
-| Dfinery.EventProperty.KEY_ITEM_ID | Array | [상품 속성](#상품-속성) |
+| 이름                            | 타입  | 설명                    | 필수 |
+| ------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) | O    |
 
 ## 상품 목록 조회
 
@@ -202,13 +203,13 @@ Dfinery.logEvent(Dfinery.Event.VIEW_CART, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -223,9 +224,9 @@ Dfinery.logEvent(Dfinery.Event.VIEW_LIST, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름      | 타입  | 설명               |
-| --------- | ----- | ------------------ |
-| KEY_ITEMS | Array | [상품 속성](#상품-속성) |
+| 이름                            | 타입  | 설명                    | 필수 |
+| ------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) | O    |
 
 ## 상품 공유하기
 
@@ -236,20 +237,20 @@ Dfinery.logEvent(Dfinery.Event.VIEW_LIST, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
 
 const eventParam = {};
 eventParam[Dfinery.EventProperty.KEY_ITEMS] = itemList;
-eventParam[Dfinery.EventProperty.KEY_SHARING_CHANNEL] = 'Facebook';
+eventParam[Dfinery.EventProperty.KEY_SHARING_CHANNEL] = "Facebook";
 
 Dfinery.logEvent(Dfinery.Event.SHARE_PRODUCT, eventParam);
 ```
@@ -258,10 +259,10 @@ Dfinery.logEvent(Dfinery.Event.SHARE_PRODUCT, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                                      | 타입  | 설명                                                                                 |
-| ----------------------------------------- | ----- | ------------------------------------------------------------------------------------ |
-| Dfinery.EventProperty.KEY_ITEMS           | Array | [상품 속성](https://github.com/IGAWorksDev/dfn-v2-dfinery-web-sdk/wiki/📊-분석#상품-속성) |
-| Dfinery.EventProperty.KEY_SHARING_CHANNEL | Enum  | 상품 공유 채널                                                                       |
+| 이름                                      | 타입  | 설명                    | 필수 |
+| ----------------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS           | Array | [상품 속성](#상품-속성) | O    |
+| Dfinery.EventProperty.KEY_SHARING_CHANNEL | Enum  | 상품 공유 채널          | O    |
 
 ## 상품 검색하기
 
@@ -269,20 +270,20 @@ Dfinery.logEvent(Dfinery.Event.SHARE_PRODUCT, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 16000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 700;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 10;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
 
 const eventParam = {};
 eventParam[Dfinery.EventProperty.KEY_ITEMS] = itemList;
-eventParam[Dfinery.EventProperty.KEY_KEYWORD] = '사또밥';
+eventParam[Dfinery.EventProperty.KEY_KEYWORD] = "사또밥";
 
 Dfinery.logEvent(Dfinery.Event.VIEW_SEARCH_RESULT, eventParam);
 ```
@@ -291,10 +292,10 @@ Dfinery.logEvent(Dfinery.Event.VIEW_SEARCH_RESULT, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                              | 타입   | 설명               |
-| --------------------------------- | ------ | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS   | Array  | [상품 속성](#상품-속성) |
-| Dfinery.EventProperty.KEY_KEYWORD | String | 검색 키워드        |
+| 이름                              | 타입   | 설명                    | 필수 |
+| --------------------------------- | ------ | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS   | Array  | [상품 속성](#상품-속성) | O    |
+| Dfinery.EventProperty.KEY_KEYWORD | String | 검색 키워드             | O    |
 
 ## 관심 상품 추가
 
@@ -302,13 +303,13 @@ Dfinery.logEvent(Dfinery.Event.VIEW_SEARCH_RESULT, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -320,9 +321,9 @@ Dfinery.logEvent(Dfinery.Event.ADD_TO_WISHLIST, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                            | 타입  | 설명               |
-| ------------------------------- | ----- | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) |
+| 이름                            | 타입  | 설명                    | 필수 |
+| ------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) | O    |
 
 ## 장바구니에 상품 담기
 
@@ -330,13 +331,13 @@ Dfinery.logEvent(Dfinery.Event.ADD_TO_WISHLIST, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -348,9 +349,9 @@ Dfinery.logEvent(Dfinery.Event.ADD_TO_CART, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                            | 타입  | 설명               |
-| ------------------------------- | ----- | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) |
+| 이름                            | 타입  | 설명                    | 필수 |
+| ------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) | O    |
 
 ## 장바구니에 담긴 상품 제거하기
 
@@ -358,13 +359,13 @@ Dfinery.logEvent(Dfinery.Event.ADD_TO_CART, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -376,9 +377,9 @@ Dfinery.logEvent(Dfinery.Event.REMOVE_CART, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                            | 타입  | 설명               |
-| ------------------------------- | ----- | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) |
+| 이름                            | 타입  | 설명                    | 필수 |
+| ------------------------------- | ----- | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS | Array | [상품 속성](#상품-속성) | O    |
 
 ## 상품 상세 보기
 
@@ -386,13 +387,13 @@ Dfinery.logEvent(Dfinery.Event.REMOVE_CART, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -408,7 +409,7 @@ Dfinery.logEvent(Dfinery.Event.VIEW_PRODUCT_DETAILS, eventParam);
 
 ```javascript
 const eventParam = {};
-eventParam['key'] = 'value'; //사용자 정의 속성 값(Optional)
+eventParam["key"] = "value"; //사용자 정의 속성 값(Optional)
 Dfinery.logEvent(Dfinery.Event.ADD_PAYMENT_INFO, eventParam);
 ```
 
@@ -418,34 +419,37 @@ Dfinery.logEvent(Dfinery.Event.ADD_PAYMENT_INFO, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
-item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_QUANTITY] = 6;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
 
 const eventParam = {};
 eventParam[Dfinery.EventProperty.KEY_ITEMS] = itemList;
-eventParam[Dfinery.EventProperty.KEY_PAYMENT_METHOD] = 'BankTransfer';
-eventParam[Dfinery.EventProperty.KEY_ORDER_ID] = 'Order-123';
-eventParam[Dfinery.EventProperty.KEY_DELIVERY_CHARGE] = 30000;
+eventParam[Dfinery.EventProperty.KEY_PAYMENT_METHOD] = "BankTransfer";
+eventParam[Dfinery.EventProperty.KEY_ORDER_ID] = "Order-123";
+eventParam[Dfinery.EventProperty.KEY_TOTAL_PURCHASE_AMOUNT] = 30000;
+eventParam[Dfinery.EventProperty.KEY_DELIVERY_CHARGE] = 2500;
+eventParam[Dfinery.EventProperty.KEY_DISCOUNT] = 3000;
+
 Dfinery.logEvent(Dfinery.Event.PURCHASE, eventParam);
 ```
 
 ### 기 정의된 속성 값
 
-| 이름                                            | 타입   | 설명               |
-| ----------------------------------------------- | ------ | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS                 | Array  | [상품 속성](#상품-속성) |
-| Dfinery.EventProperty.KEY_ORDER_ID              | String | 주문 번호(ID)      |
-| Dfinery.EventProperty.KEY_DELIVERY_CHARGE       | NUMBER | 배송료             |
-| Dfinery.EventProperty.KEY_PAYMENT_METHOD        | String | 결제 방법          |
-| Dfinery.EventProperty.KEY_TOTAL_PURCHASE_AMOUNT | NUMBER | 주문 총액          |
+| 이름                                            | 타입   | 설명                    | 필수 |
+| ----------------------------------------------- | ------ | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS                 | Array  | [상품 속성](#상품-속성) | O    |
+| Dfinery.EventProperty.KEY_ORDER_ID              | String | 주문 번호(ID)           | O    |
+| Dfinery.EventProperty.KEY_PAYMENT_METHOD        | String | 결제 방법               | O    |
+| Dfinery.EventProperty.KEY_TOTAL_PURCHASE_AMOUNT | NUMBER | 주문 총액               | O    |
+| Dfinery.EventProperty.KEY_DELIVERY_CHARGE       | NUMBER | 배송료                  | O    |
 
 ## 환불하기
 
@@ -453,13 +457,13 @@ Dfinery.logEvent(Dfinery.Event.PURCHASE, eventParam);
 
 ```javascript
 const item = {};
-item[Dfinery.EventProperty.KEY_ITEM_ID] = '상품번호';
-item[Dfinery.EventProperty.KEY_ITEM_NAME] = '상품이름';
-item[Dfinery.EventProperty.KEY_CATEGORY1] = '식품';
-item[Dfinery.EventProperty.KEY_CATEGORY2] = '과자';
+item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
+item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
+item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
+item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
@@ -471,10 +475,10 @@ Dfinery.logEvent(Dfindery.Event.REFUND, eventParam);
 
 ### 기 정의된 속성 값
 
-| 이름                                          | 타입   | 설명               |
-| --------------------------------------------- | ------ | ------------------ |
-| Dfinery.EventProperty.KEY_ITEMS               | Array  | [상품 속성](#상품-속성) |
-| Dfinery.EventProperty.KEY_TOTAL_REFUND_AMOUNT | NUMBER | 환불 총액          |
+| 이름                                          | 타입   | 설명                    | 필수 |
+| --------------------------------------------- | ------ | ----------------------- | ---- |
+| Dfinery.EventProperty.KEY_ITEMS               | Array  | [상품 속성](#상품-속성) | O    |
+| Dfinery.EventProperty.KEY_TOTAL_REFUND_AMOUNT | NUMBER | 환불 총액               | O    |
 
 ## 커스텀 이벤트
 
@@ -483,15 +487,15 @@ Dfinery.logEvent(Dfindery.Event.REFUND, eventParam);
 ### 속성이 없을 경우
 
 ```javascript
-Dfinery.logEvent('{event_name}', null);
+Dfinery.logEvent("{event_name}", null);
 ```
 
 ### 속성이 있을 경우
 
 ```javascript
 const eventParam = {};
-eventParam.push('key', 'value'); //사용자 정의 속성 값(Optional)
-Dfinery.logEvent('{event_name}', eventParam);
+eventParam.push("key", "value"); //사용자 정의 속성 값(Optional)
+Dfinery.logEvent("{event_name}", eventParam);
 ```
 
 ## 자동으로 수집되는 데이터
