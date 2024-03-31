@@ -53,7 +53,7 @@ Dfinery.setIdentities(identity);
 
 Dfinery.resetIdentity 메소드를 호출하면 기존 저장하고 있던 통합 ID 식별 정보를 제거하고 초기화할 수 있습니다.
 > [!CAUTION]
-> 이 메소드를 호출 할 경우 기존 사용자의 이벤트 흐름이 끊기므로 
+> 이 메소드를 호출 할 경우 기존 사용자의 이벤트 흐름이 끊기므로 유저 시나리오에 맞게 사용하세요.
 
 ```javascript
 Dfinery.resetIdentity();

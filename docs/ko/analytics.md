@@ -6,7 +6,7 @@
 
 Web-SDK를 사용하기 전에 디파이너리 콘솔에 이벤트를 등록 후 연동해 주세요. 이벤트 등록은 콘솔의 부가 설정 > 데이터 연동 > 이벤트 관리 > 이벤트 목록에서 할 수 있습니다.
 
-> [!WARNING]주의
+> [!WARNING]
 > 등록되지 않은 이벤트, 이벤트 속성, 잘못된 타입의 이벤트 속성이 기록될 경우, 혹은 등록된 이벤트 속성중 하나라도 누락될 경우 이벤트가 기록되지 않습니다.
 
 ## 이벤트 기록
@@ -23,6 +23,9 @@ logEvent(eventName, eventParam);
 
 - `eventName` : 이벤트명
 - `eventParam` : 이벤트 속성
+
+> [!WARNING]
+> 표준이벤트 마다 필수 값이 다릅니다. 확인 후 사용하세요.
 
 ## 표준
 
@@ -96,29 +99,27 @@ const eventParam = {};
 eventParam[Dfinery.EventProperty.KEY_SIGN_CHANNEL] = "Kakao";
 Dfinery.logEvent(Dfinery.Event.SIGN_UP, eventParam);
 
-// 이벤트 item 속성과 함께 기록할 경우 ex) 구매
+// 이벤트 item 속성과 함께 기록할 경우 ex) 장바구니 조회
 const item = {};
 item[Dfinery.EventProperty.KEY_ITEM_ID] = "상품번호";
 item[Dfinery.EventProperty.KEY_ITEM_NAME] = "상품이름";
 item[Dfinery.EventProperty.KEY_PRICE] = 5000;
 item[Dfinery.EventProperty.KEY_DISCOUNT] = 500;
 item[Dfinery.EventProperty.KEY_QUANTITY] = 5;
-item[Dfinery.EventProperty.KEY_CATEGORY1] = "식품";
-item[Dfinery.EventProperty.KEY_CATEGORY2] = "과자";
 
 const itemList = [];
 itemList.push(item);
 const eventParam = {};
 eventParam[Dfinery.EventProperty.KEY_ITEMS] = itemList;
 
-Dfinery.logEvent(Dfinery.Event.PURCHASE, eventParam);
+Dfinery.logEvent(Dfinery.Event.VIEW_CART, eventParam);
 ```
 
 ## 로그인
 
 유저가 로그인하는 동작을 나타내는 이벤트입니다.  
-로그인 이벤트 전 유저의 Identity를 설정하면 해당 유저의 Login이벤트로 측정할 수 있습니다.
-Identity설정과 Event를 같이 하려면 비동기(async) 함수내에서 실행되어야 합니다.
+로그인 이벤트를 호출하기 전에 유저의 Identity를 설정하면 해당 유저의 Login이벤트로 측정할 수 있습니다.
+비동기(async) 함수내에서 setIdentity 함수 실행 후에 logEvent 함수가 호출되어야 합니다.
 
 ```javascript
 async function DfineryLogin() {
@@ -129,7 +130,8 @@ async function DfineryLogin() {
 }
 ```
 
-> [!WARNING] > `Dfinery.setIdentity` API를 기다리지 않고 Login을 실행할 경우 Identity를 설정한 유저의 Login이벤트로 측정 안 될 수 있으므로 반드시 await나 promise.then함수를 사용하여 Identity가 설정된 후 호출 되어야 합니다.
+> [!WARNING]
+> `Dfinery.setIdentity` API를 기다리지 않고 Login을 실행할 경우 Identity를 설정한 유저의 Login이벤트로 측정 안 될 수 있으므로 반드시 await나 promise.then함수를 사용하여 Identity가 설정된 후 호출 되어야 합니다.
 
 ## 로그아웃
 
