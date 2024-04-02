@@ -9,10 +9,13 @@
 SDK 설치 및 초기화 방법에 대한 안내 가이드 입니다.
 
 ### 지원 브라우저
+지원 브라우저는 아래와 같습니다. 
+```
+Chrome, Safari, Samsung Internet, Edge, Whale, Firefox, Opera
+```
 
-| Chrome | Firefox | Safari | Edge | IE  |
-| :----: | :-----: | :----: | :--: | :-: |
-|   O    |    O    |   O    |  O   |  X  |
+> [!WARNING] 
+> IE(Intenet Explorer)는 지원하지 않습니다.
 
 ### 설치 및 초기화
 
