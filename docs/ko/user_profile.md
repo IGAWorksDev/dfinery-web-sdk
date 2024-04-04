@@ -94,11 +94,11 @@ Dfinery.setUserProfile("{key}", "{value}");
 
 ```javascript
 const profile = {};
-profile[(Dfinery.UserProfile.BIRTH, new Date("2014-05-14"))];
-profile[(Dfinery.UserProfile.NAME, "TestName")];
-profile[(Dfinery.UserProfile.GENDER, Dfinery.Gender.MALE)];
-profile[(Dfinery.UserProfile.MEMBERSHIP, "VIP")];
-profile[("CustomKey", "CustomValue")]; // 설정한 Key값으로 입력
+profile[Dfinery.UserProfile.BIRTH] = new Date("2014-05-14");
+profile[Dfinery.UserProfile.NAME] =  "TestName";
+profile[Dfinery.UserProfile.GENDER] = Dfinery.Gender.MALE;
+profile[Dfinery.UserProfile.MEMBERSHIP] = "VIP";
+profile["CustomKey"] = "CustomValue"; // 설정한 Key값으로 입력
 
 Dfinery.setUserProfiles(profile);
 ```
