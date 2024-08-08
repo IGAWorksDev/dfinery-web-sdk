@@ -1,6 +1,6 @@
 ![dfinery](https://www.dfinery.io/assets/images/logos/logo_color.svg)
 
-## Dfinery 1x3 Web SDK
+## Dfinery Web SDK
 
 ### ℹ️ Information
 - Supported browsers : Chrome, Safari, Samsung Internet, Edge, Whale, Firefox, Opera
