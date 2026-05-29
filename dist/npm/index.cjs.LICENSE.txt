@@ -1,0 +1,5 @@
+/*! For license information please see jsstore.commonjs2.min.js.LICENSE.txt */
+
+/*! For license information please see jsstore.worker.commonjs2.min.js.LICENSE.txt */
+
+/*! js-cookie v3.0.5 | MIT */
