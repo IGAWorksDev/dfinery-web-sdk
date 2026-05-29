@@ -1,0 +1,53 @@
+{
+  "name": "@igaworks/dfinery-web-sdk",
+  "version": "3.0.0-rc.0",
+  "description": "Dfinery CRM Web SDK",
+  "main": "./dist/npm/index.cjs",
+  "types": "./types/index.d.ts",
+  "unpkg": "./dist/dfn-web-sdk.min.js",
+  "jsdelivr": "./dist/dfn-web-sdk.min.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.mts",
+        "default": "./dist/npm/index.mjs"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/npm/index.cjs"
+      },
+      "types": "./types/index.d.ts",
+      "default": "./dist/npm/index.cjs"
+    },
+    "./browser": "./dist/dfn-web-sdk.min.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "LICENSE",
+    "dist/npm/**/*",
+    "dist/dfn-web-sdk.min.js",
+    "dist/dfn-web-sdk.min.js.LICENSE.txt",
+    "types/**/*"
+  ],
+  "sideEffects": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IGAWorksDev/dfinery-web-sdk.git"
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 5.0.0"
+  },
+  "keywords": [
+    "dfinery",
+    "web-sdk",
+    "analytics",
+    "crm"
+  ],
+  "author": "igaworks",
+  "license": "SEE LICENSE IN LICENSE"
+}
