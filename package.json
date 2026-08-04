@@ -1,6 +1,6 @@
 {
   "name": "@igaworks/dfinery-web-sdk",
-  "version": "3.1.0",
+  "version": "3.1.1-beta.0",
   "description": "Dfinery CRM Web SDK",
   "main": "./dist/npm/index.cjs",
   "types": "./types/index.d.ts",
