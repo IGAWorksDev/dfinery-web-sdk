@@ -2,4 +2,4 @@
 
 /*! For license information please see jsstore.worker.commonjs2.min.js.LICENSE.txt */
 
-/*! js-cookie v3.0.5 | MIT */
+/*! js-cookie v3.0.8 | MIT */
